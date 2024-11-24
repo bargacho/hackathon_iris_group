@@ -5,113 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plant Collection</title>
     <link rel="stylesheet" href="/static/main.css">
-    <style>
-        /* Styles pour la boîte modale */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.8);
-        }
-
-        .modal-content {
-            margin: auto;
-            display: block;
-            width: 50%;
-            max-width: 700px;
-            border-radius: 10px;
-        }
-
-        .modal-content img {
-            width: 100%;
-            border-radius: 10px;
-        }
-
-        .close {
-            position: absolute;
-            top: 20px;
-            right: 35px;
-            color: white;
-            font-size: 40px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: #bbb;
-            text-decoration: none;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
-    <h1 style="text-align: center;">Plant Collection</h1>
+    <h1>Plant Collection</h1>
 
-     <!-- Barre de recherche -->
-     <form method="post" action="/" style="text-align: center; margin-bottom: 20px;">
-      <input type="text" name="plant_name" placeholder="Search for a plant..." value="{{ query }}" style="padding: 10px; width: 300px;">
-      <button type="submit" style="padding: 10px;">Search</button>
-  </form>
+    <!-- Barre de recherche -->
+    <form method="post" action="/" style="text-align: center; margin-bottom: 20px;">
+        <input type="text" name="plant_name" placeholder="Search for a plant..." value="{{ query }}" style="padding: 10px; width: 300px;">
+        <button type="submit" style="padding: 10px;">Search</button>
+    </form>
 
-  <!-- Message de recherche -->
-  {% if query %}
-      <p style="text-align: center;">Results for "{{ query }}":</p>
-  {% endif %}
+    <!-- Message de recherche -->
+    {% if query %}
+        <p style="text-align: center;">Results for "{{ query }}":</p>
+    {% endif %}
 
-  <!-- Galerie des plantes -->
-  <div class="plant-gallery">
-      {% if plants %}
-          {% for plant in plants %}
-              <div class="plant-item">
-                  <img src="{{ url_for('static', path=plant.image) }}" alt="{{ plant.name }}" class="plant-image" />
-                  <h4>{{ plant.name }}</h4>
-                  <p>{{ plant.description }}</p>
-                  <p class="price">€{{ plant.price }}</p>
-              </div>
-          {% endfor %}
-      {% else %}
-          <p style="text-align: center;">No plants found matching your search.</p>
-      {% endif %}
-  </div>
-
-    <!-- Modale -->
-    <div id="imageModal" class="modal">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="modalImage" />
+    <!-- Galerie des plantes -->
+    <div class="plant-gallery">
+        {% if plants %}
+            {% for plant in plants %}
+                <div class="plant-item">
+                    <img src="{{ url_for('static', path=plant.image) }}" alt="{{ plant.name }}" class="plant-image" />
+                    <h4>{{ plant.name }}</h4>
+                    <p>{{ plant.description }}</p>
+                    <p class="price">€{{ plant.price }}</p>
+                    <a href="/plant_details/{{ plant.name }}" 
+                       style="padding: 5px 10px; background-color: blue; color: white; text-decoration: none; border-radius: 5px;">
+                       View Details
+                    </a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p style="text-align: center;">No plants found matching your search.</p>
+        {% endif %}
     </div>
-
-    <script>
-        // JavaScript pour gérer la boîte modale
-        const modal = document.getElementById("imageModal");
-        const modalImage = document.getElementById("modalImage");
-        const closeModal = document.getElementsByClassName("close")[0];
-
-        // Ouvrir la modale avec l'image
-        document.querySelectorAll(".view-details").forEach(button => {
-            button.addEventListener("click", () => {
-                const imageUrl = button.getAttribute("data-image");
-                modal.style.display = "block";
-                modalImage.src = imageUrl;
-            });
-        });
-
-        // Fermer la modale
-        closeModal.onclick = function () {
-            modal.style.display = "none";
-        };
-
-        // Fermer la modale en cliquant à l'extérieur
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        };
-    </script>
 </body>
 </html>
