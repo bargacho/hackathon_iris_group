@@ -12,10 +12,10 @@ MODEL_NAME = "mistral-embed"
 
 from iris import DATA_DIR
 
-df = pd.read_csv(f"{DATA_DIR}/dataset.csv")
+PLANT_DF = pd.read_csv(f"{DATA_DIR}/dataset.csv")
 
-min_price = df['Price (eur)'].min()
-max_price = df['Price (eur)'].max()
+min_price = PLANT_DF['Price (eur)'].min()
+max_price = PLANT_DF['Price (eur)'].max()
 
 # Embedding
 docs = [
@@ -23,7 +23,7 @@ docs = [
     f"It requires {row['Light needs']} light, {row['Water needs']} water, and grows best in {row['Soil type']} soil. "
     f"It is priced at {row['Price (eur)']} euros (plants in this dataset range between {min_price} and {max_price} euros) "
     f"and has a rating of {row['Rating (out of 5)']} out of 5. "
-    for _, row in df.iterrows()
+    for _, row in PLANT_DF.iterrows()
 ]
 
 
@@ -56,7 +56,7 @@ QDRANT_DB.upsert(
 )
 
 from .search import search_plants
-
+from .similar_search import find_similar_plants
 
 
 def test():
