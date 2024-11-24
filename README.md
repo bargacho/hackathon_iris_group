@@ -1,4 +1,8 @@
-# Hackathon Polytechnique IRIS Group
+# Hackathon Polytechnique IRIS
+
+## Our product
+
+Welcome to the IRIS plant shop. With more than 50 products in our collection, we are happy to provide you assistance with the best language models on the market. We will find the best plant according to your preferences. Ask anything to the assistant and happy purchase!
 
 ## Setup
 
