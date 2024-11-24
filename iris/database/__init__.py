@@ -10,9 +10,9 @@ from iris import MISTRAL_API_KEY
 MISTRAL_CLIENT = Mistral(api_key=MISTRAL_API_KEY)
 MODEL_NAME = "mistral-embed"
 
-from iris import WORKDIR
+from iris import DATA_DIR
 
-df = pd.read_csv(f"{WORKDIR}/content/dataset.csv")
+df = pd.read_csv(f"{DATA_DIR}/dataset.csv")
 
 min_price = df['Price (eur)'].min()
 max_price = df['Price (eur)'].max()
@@ -33,7 +33,7 @@ embeddings = get_embeddings_by_chunks(docs, chunk_size=50)
 
 
 # Initialiser Qdrant Client
-QDRANT_DB = QdrantClient(path=f"{WORKDIR}/content/qdrant_database")
+QDRANT_DB = QdrantClient(path=f"{DATA_DIR}/qdrant_database")
 COLLECTION_NAME = "plants_embeddings"
 
 # Créer une collection Qdrant

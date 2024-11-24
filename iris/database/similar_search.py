@@ -12,10 +12,10 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 
-from . import WORKDIR
+from . import DATA_DIR
 
 # Charger le dataset
-file_path = f"{WORKDIR}/content/dataset.csv"
+file_path = f"{DATA_DIR}/dataset.csv"
 dataset = pd.read_csv(file_path)
 
 # Préparer les données
@@ -57,4 +57,4 @@ def _find_similar_plants(plant_name, features, plant_names, top_n=3):
     return similar_plants
 
 def find_similar_plants(plant_name):
-    return find_similar_plants(plant_name, features, plant_names)
+    return _find_similar_plants(plant_name, features, plant_names)

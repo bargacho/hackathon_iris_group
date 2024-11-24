@@ -42,9 +42,10 @@ def run_model(input):
 
 def test():
     import pandas as pd
+    from .database import WORKDIR
 
     # Fichier contenant les prompts et réponses (générer et corrigé à la main cf autre fichier code)
-    data = pd.read_csv("prompts.csv", sep=";")
+    data = pd.read_csv(f"{WORKDIR}/prompts.csv", sep=";")
 
 
     # Format des données : [{"prompt": ..., "response": ...}]

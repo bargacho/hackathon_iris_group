@@ -1,7 +1,7 @@
 import os
 import shutil
 
-WORKDIR = os.path.dirname(os.path.realpath(__file__))
+DATA_DIR = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data')
 
 try:
     MISTRAL_API_KEY = os.environ['MISTRAL_API_KEY']
@@ -11,7 +11,7 @@ except:
 
 try:
     # Supprime la base de données initiale si nécessaire
-    shutil.rmtree(f'{WORKDIR}/content/qdrant_database')
+    shutil.rmtree(f'{DATA_DIR}/qdrant_database')
 except FileNotFoundError:
     pass
 
