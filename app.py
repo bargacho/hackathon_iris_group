@@ -3,6 +3,8 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 
+from iris import run_model
+
 app = FastAPI()
 
 # Setup for templates
@@ -86,28 +88,20 @@ async def plant_details(request: Request, plant_name: str):
 
 @app.post("/ask", response_class=HTMLResponse)
 async def ask_question(request: Request, question: str = Form(...)):
-    # Exemple : réponse statique pour le moment
-    response = "Réponse"
+    response = run_model(question)
+    answer = response.content
+    recommended_plants = [
+        plant
+        for plant in plants
+        if plant["name"].lower() in response
+    ]
     return templates.TemplateResponse(
         "index.html",
         {
             "request": request,
-            "plants": plants,
+            "plants": recommended_plants,
             "query": "",
             "question": question,
-            "answer": response,
+            "answer": answer,
         },
     )
-
-# Fonction pour générer une réponse simple
-def generate_response(question: str) -> str:
-    # Exemple de logique simple basée sur des mots-clés
-    question_lower = question.lower()
-    if "light" in question_lower:
-        return "Plants like Snake Plant or Peace Lily thrive in low light."
-    elif "water" in question_lower:
-        return "Succulents are a great choice for low water needs."
-    elif "cheap" in question_lower or "inexpensive" in question_lower:
-        return "Consider Ivy or Poinsettia, which are budget-friendly options."
-    else:
-        return "Aloe Vera and Lavender are great general-purpose plants."

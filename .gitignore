@@ -19,3 +19,5 @@ build/
 *.gif
 
 __MACOSX
+
+qdrant_database
