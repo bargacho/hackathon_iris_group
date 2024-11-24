@@ -39,7 +39,7 @@ def preprocess_selected_features(data):
 features, plant_names = preprocess_selected_features(dataset)
 
 # Fonction pour trouver les plantes similaires
-def find_similar_plants(plant_name, features, plant_names, top_n=3):
+def _find_similar_plants(plant_name, features, plant_names, top_n=3):
     if plant_name not in plant_names:
         return f"Plant '{plant_name}' not found in the dataset."
 
@@ -56,6 +56,5 @@ def find_similar_plants(plant_name, features, plant_names, top_n=3):
     similar_plants = plant_names[similar_indices]
     return similar_plants
 
-# Exemple : Trouver des plantes similaires à "Aloe Vera"
-similar_to_aloe_vera = find_similar_plants("Geranium", features, plant_names)
-print("Plantes similaires à 'Geranium' :", similar_to_aloe_vera)
+def find_similar_plants(plant_name):
+    return find_similar_plants(plant_name, features, plant_names)

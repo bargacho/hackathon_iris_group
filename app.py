@@ -93,7 +93,7 @@ async def ask_question(request: Request, question: str = Form(...)):
     recommended_plants = [
         plant
         for plant in plants
-        if plant["name"].lower() in response
+        if plant["name"].lower() in answer
     ]
     return templates.TemplateResponse(
         "index.html",
