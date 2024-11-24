@@ -2,6 +2,8 @@
 
 ## Setup
 
+Lien vidéo démonstration: https://drive.google.com/file/d/1ipQ963HQt_kcmzxq25Hj2DP02rgDMDUZ/view?usp=sharing
+
 1. If you don’t have Python installed, [install it from here](https://www.python.org/downloads/)
 
 2. Clone this repository
