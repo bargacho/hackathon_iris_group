@@ -1,69 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Collection</title>
+    <link rel="stylesheet" href="/static/main.css">
+    <style>
+        /* Styles pour la boîte modale */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 50%;
+            max-width: 700px;
+            border-radius: 10px;
+        }
+
+        .modal-content img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
 <body>
+    <h1 style="text-align: center;">Plant Collection</h1>
 
-  <h1>Polytechnique Plant Collection - Iris Group</h1>
-
-  
-  <!-- Reste du contenu -->
-  <form method="post" action="/" style="text-align: center; margin-bottom: 20px;">
-      <input type="text" name="plant_name" placeholder="Search for a plant..." style="padding: 10px; width: 300px;">
-      <button type="submit" style="padding: 10px;">Search</button>
-  </form>
-</body>
-
-
-<!-- Message de résultat -->
-{% if result %}
-    <p style="text-align: center;">{{ result }}</p>
-{% endif %}
-
-<p>{{ result }}</p>
-<link rel="stylesheet" href="/static/main.css">
-
-<div class="plant-gallery">
-  {% for plant in plants %}
-    <div class="plant-item">
-      <img src="{{ url_for('static', path=plant.image) }}" alt="{{ plant.name }}" class="plant-image" />
-      <h4>{{ plant.name }}</h4>
-      <p>{{ plant.description }}</p>
-      <p class="price">${{ plant.price }}</p>
-      <button class="add-to-cart" data-id="{{ plant.id }}">Add to Cart</button>
+    <!-- Galerie des plantes -->
+    <div class="plant-gallery">
+        {% for plant in plants %}
+        <div class="plant-item">
+            <img src="{{ url_for('static', path=plant.image) }}" alt="{{ plant.name }}" class="plant-image" style="width: 150px; height: 150px;" />
+            <h4>{{ plant.name }}</h4>
+            <p>{{ plant.description }}</p>
+            <p class="price">€{{ plant.price }}</p>
+            <button class="view-details" data-image="{{ url_for('static', path=plant.image) }}" style="padding: 5px 10px; background-color: blue; color: white; border: none; cursor: pointer;">View Picture</button>
+        </div>
+        {% endfor %}
     </div>
-  {% endfor %}
-</div>
 
-<body>
-  <h1>Polytechnique Plant Collection - Iris Group</h1>
+    <!-- Modale -->
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage" />
+    </div>
 
-  <!-- Formulaire de recherche -->
-  <form method="post" action="/" style="text-align: center; margin-bottom: 20px;">
-      <input type="text" name="plant_name" placeholder="Search for a plant..." style="padding: 10px; width: 300px;">
-      <button type="submit" style="padding: 10px;">Search</button>
-  </form>
+    <script>
+        // JavaScript pour gérer la boîte modale
+        const modal = document.getElementById("imageModal");
+        const modalImage = document.getElementById("modalImage");
+        const closeModal = document.getElementsByClassName("close")[0];
 
-  <!-- Message de résultat -->
-  {% if result %}
-      <p style="text-align: center;">{{ result }}</p>
-  {% endif %}
+        // Ouvrir la modale avec l'image
+        document.querySelectorAll(".view-details").forEach(button => {
+            button.addEventListener("click", () => {
+                const imageUrl = button.getAttribute("data-image");
+                modal.style.display = "block";
+                modalImage.src = imageUrl;
+            });
+        });
 
-  <!-- Galerie des plantes -->
-  <div class="plant-gallery">
-    {% for plant in plants %}
-      <div class="plant-item">
-        <img src="{{ url_for('static', path=plant.image) }}" alt="{{ plant.name }}" class="plant-image" />
-        <h4>{{ plant.name }}</h4>
-        <p>{{ plant.description }}</p>
-        <p class="price">€{{ plant.price }}</p>
-        <button class="add-to-cart">Add to Cart</button>
-      </div>
-    {% endfor %}
-  </div>
+        // Fermer la modale
+        closeModal.onclick = function () {
+            modal.style.display = "none";
+        };
+
+        // Fermer la modale en cliquant à l'extérieur
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+    </script>
 </body>
-
-
-
-
-
-
-
-
-
+</html>
