@@ -1,0 +1,69 @@
+<body>
+
+  <h1>Polytechnique Plant Collection - Iris Group</h1>
+
+  
+  <!-- Reste du contenu -->
+  <form method="post" action="/" style="text-align: center; margin-bottom: 20px;">
+      <input type="text" name="plant_name" placeholder="Search for a plant..." style="padding: 10px; width: 300px;">
+      <button type="submit" style="padding: 10px;">Search</button>
+  </form>
+</body>
+
+
+<!-- Message de résultat -->
+{% if result %}
+    <p style="text-align: center;">{{ result }}</p>
+{% endif %}
+
+<p>{{ result }}</p>
+<link rel="stylesheet" href="/static/main.css">
+
+<div class="plant-gallery">
+  {% for plant in plants %}
+    <div class="plant-item">
+      <img src="{{ url_for('static', path=plant.image) }}" alt="{{ plant.name }}" class="plant-image" />
+      <h4>{{ plant.name }}</h4>
+      <p>{{ plant.description }}</p>
+      <p class="price">${{ plant.price }}</p>
+      <button class="add-to-cart" data-id="{{ plant.id }}">Add to Cart</button>
+    </div>
+  {% endfor %}
+</div>
+
+<body>
+  <h1>Polytechnique Plant Collection - Iris Group</h1>
+
+  <!-- Formulaire de recherche -->
+  <form method="post" action="/" style="text-align: center; margin-bottom: 20px;">
+      <input type="text" name="plant_name" placeholder="Search for a plant..." style="padding: 10px; width: 300px;">
+      <button type="submit" style="padding: 10px;">Search</button>
+  </form>
+
+  <!-- Message de résultat -->
+  {% if result %}
+      <p style="text-align: center;">{{ result }}</p>
+  {% endif %}
+
+  <!-- Galerie des plantes -->
+  <div class="plant-gallery">
+    {% for plant in plants %}
+      <div class="plant-item">
+        <img src="{{ url_for('static', path=plant.image) }}" alt="{{ plant.name }}" class="plant-image" />
+        <h4>{{ plant.name }}</h4>
+        <p>{{ plant.description }}</p>
+        <p class="price">€{{ plant.price }}</p>
+        <button class="add-to-cart">Add to Cart</button>
+      </div>
+    {% endfor %}
+  </div>
+</body>
+
+
+
+
+
+
+
+
+
