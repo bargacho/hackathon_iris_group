@@ -55,3 +55,28 @@ h1 {
   font-family: Arial, sans-serif; /* Police lisible */
 }
 
+form input[type="text"] {
+  font-size: 1rem;
+  padding: 10px;
+  width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+form button {
+  font-size: 1rem;
+  padding: 10px 20px;
+  background-color: #10a37f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+div {
+  font-family: Arial, sans-serif;
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
+}
+

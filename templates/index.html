@@ -20,6 +20,20 @@
         <p style="text-align: center;">Results for "{{ query }}":</p>
     {% endif %}
 
+    <!-- Formulaire pour poser une question -->
+    <form method="post" action="/ask" style="text-align: center; margin-bottom: 20px;">
+      <input type="text" name="question" placeholder="Ask a question about plants..." style="padding: 10px; width: 300px;">
+      <button type="submit" style="padding: 10px;">Ask</button>
+  </form>
+
+  <!-- Affichage de la réponse -->
+  {% if question and answer %}
+      <div style="text-align: center; margin-top: 20px; padding: 10px; border: 1px solid #ddd; background-color: #f9f9f9;">
+          <p><strong>Question:</strong> {{ question }}</p>
+          <p><strong>Answer:</strong> {{ answer }}</p>
+      </div>
+  {% endif %}
+  
     <!-- Galerie des plantes -->
     <div class="plant-gallery">
         {% if plants %}
