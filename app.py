@@ -60,16 +60,16 @@ plants = [
     {"name": "Gladiolus", "description": "A striking flower with tall spikes, ideal for garden borders.", "price": "20.44", "image": "Gladiolus.webp"}
 ]
 
+
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request, "plants": plants})
+    # Affiche toutes les plantes par défaut
+    return templates.TemplateResponse("index.html", {"request": request, "plants": plants, "query": ""})
 
-@app.get("/plant_details/{plant_name}", response_class=HTMLResponse)
-async def plant_details(request: Request, plant_name: str):
-    # Rechercher la plante correspondante
-    plant = next((plant for plant in plants if plant["name"] == plant_name), None)
-    if not plant:
-        return templates.TemplateResponse(
-            "404.html", {"request": request, "message": f"Plant '{plant_name}' not found."}
-        )
-    return templates.TemplateResponse("plant_details.html", {"request": request, "plant": plant})
+@app.post("/", response_class=HTMLResponse)
+async def search_plants(request: Request, plant_name: str = Form(...)):
+    # Filtrer les plantes en fonction du nom saisi
+    filtered_plants = [
+        plant for plant in plants if plant_name.lower() in plant["name"].lower()
+    ]
+    return templates.TemplateResponse("index.html", {"request": request, "plants": filtered_plants, "query": plant_name})

@@ -53,18 +53,32 @@
 <body>
     <h1 style="text-align: center;">Plant Collection</h1>
 
-    <!-- Galerie des plantes -->
-    <div class="plant-gallery">
-        {% for plant in plants %}
-        <div class="plant-item">
-            <img src="{{ url_for('static', path=plant.image) }}" alt="{{ plant.name }}" class="plant-image" style="width: 150px; height: 150px;" />
-            <h4>{{ plant.name }}</h4>
-            <p>{{ plant.description }}</p>
-            <p class="price">€{{ plant.price }}</p>
-            <button class="view-details" data-image="{{ url_for('static', path=plant.image) }}" style="padding: 5px 10px; background-color: blue; color: white; border: none; cursor: pointer;">View Picture</button>
-        </div>
-        {% endfor %}
-    </div>
+     <!-- Barre de recherche -->
+     <form method="post" action="/" style="text-align: center; margin-bottom: 20px;">
+      <input type="text" name="plant_name" placeholder="Search for a plant..." value="{{ query }}" style="padding: 10px; width: 300px;">
+      <button type="submit" style="padding: 10px;">Search</button>
+  </form>
+
+  <!-- Message de recherche -->
+  {% if query %}
+      <p style="text-align: center;">Results for "{{ query }}":</p>
+  {% endif %}
+
+  <!-- Galerie des plantes -->
+  <div class="plant-gallery">
+      {% if plants %}
+          {% for plant in plants %}
+              <div class="plant-item">
+                  <img src="{{ url_for('static', path=plant.image) }}" alt="{{ plant.name }}" class="plant-image" />
+                  <h4>{{ plant.name }}</h4>
+                  <p>{{ plant.description }}</p>
+                  <p class="price">€{{ plant.price }}</p>
+              </div>
+          {% endfor %}
+      {% else %}
+          <p style="text-align: center;">No plants found matching your search.</p>
+      {% endif %}
+  </div>
 
     <!-- Modale -->
     <div id="imageModal" class="modal">
