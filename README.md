@@ -12,13 +12,7 @@
    cd hackathon_iris_group
    ```
 
-4. Add your Mistral API key to the `.env` file in the current directory:
-
-   ```env
-   MISTRAL_API_KEY=<YOUR-SECRET-KEY-HERE>
-   ```
-
-5. Create a new virtual environment
+4. Create a new virtual environment
 
    ```bash
    # Linux
@@ -32,15 +26,15 @@
    venv\Scripts\activate
    ```
 
-6. Install the requirements
+5. Install the requirements
 
    ```bash
    pip install -r requirements.txt
    ```
 
-7. Run the app
+6. Run the app
 
    ```bash
-   uvicorn app:app --reload --host 127.0.0.1 --port 5001
+   MISTRAL_API_KEY='YOUR-API-KEY' uvicorn app:app --reload --host 127.0.0.1 --port 5001
    ```
 You should now be able to access the app at [http://localhost:5001](http://localhost:5001)! 
